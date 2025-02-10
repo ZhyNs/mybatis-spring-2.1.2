@@ -18,7 +18,7 @@ package org.mybatis.spring.config;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
- * Namespace handler for the MyBatis namespace.
+ * 提供给Spring的Mybatis命名空间处理器
  *
  * @author Lishu Luo
  *

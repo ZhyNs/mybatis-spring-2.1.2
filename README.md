@@ -1,26 +1,28 @@
-MyBatis Spring Adapter
+Mybatis-Spring官方源码中文注释
 ======================
+MyBatis 与 Spring 的集成主要依靠 MyBatis-Spring 模块。这个模块提供了一些类和配置，帮助开发者在 Spring 环境中方便地使用 MyBatis。  
 
-[![Java CI](https://github.com/mybatis/spring/actions/workflows/ci.yaml/badge.svg)](https://github.com/mybatis/spring/actions/workflows/ci.yaml)
-[![Coverage Status](https://coveralls.io/repos/mybatis/spring/badge.svg?branch=master&service=github)](https://coveralls.io/github/mybatis/spring?branch=master)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis-spring/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.mybatis/mybatis-spring)
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.mybatis/mybatis-spring.svg)](https://oss.sonatype.org/content/repositories/snapshots/org/mybatis/mybatis-spring/)
-[![License](https://img.shields.io/:license-apache-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+核心思想是通过 Spring 的 IoC 容器管理 MyBatis 的核心组件（如 SqlSessionFactory 和 SqlSession），从而实现无缝集成。  
+提供两种方式：基于xml配置、基于注解配置
 
-![mybatis-spring](https://mybatis.org/images/mybatis-logo.png)
+Mybatis-Spring有两部分内容：
+- 项目的mapper.xml扫描
+- 帮助Spring管理SqlSessionFactory和SqlSession
 
-MyBatis-Spring adapter is an easy-to-use Spring bridge for MyBatis sql mapping framework.
+mapper类扫描
+---------------
+入口类：`org.mybatis.spring.config.NamespaceHandler`
 
-Supported Versions
-------------------
+mapper.xml文件的扫描有两种方式：注解扫描（常用）、xml配置扫描
+- 注解扫描的入口：`org.mybatis.spring.annotation.MapperScannerRegistrar.registerBeanDefinitions()`
+- xml配置扫描的入口：`org.mybatis.spring.config.MapperScannerBeanDefinitionParser.parseInternal()`
 
-- 3.x - Support for Spring 6 and Spring Batch 5 (**not release yet**)
-- master (2.1.x) - Enhance and maintenance for Spring 5 and Spring Batch 4 (**not release yet**)
-- 2.0.x - Support for Java 8, Spring 5, and Junit 5 plus other java 8 requirements
-- 1.3.x - Continued support for Java 6 and 7
+注意：扫描的xxxMapper类
 
-Essentials
-----------
+SqlSessionFactory及SqlSession相关
+---------------------
+入口类：`org.mybatis.spring.SqlSessionFactoryBean`
 
-* [See the published docs](https://mybatis.org/spring/)
-* [See the snapshot docs](src/site/markdown) (Note: may contain explanation of unreleased features)
+在项目中，需要通过SqlSessionFactoryBean手动创建SqlSessionFactory。
+
+注意：mapper.xml文件在这部分扫描。

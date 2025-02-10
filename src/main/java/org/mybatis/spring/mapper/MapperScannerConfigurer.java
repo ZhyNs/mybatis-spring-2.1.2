@@ -42,15 +42,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 /**
- * BeanDefinitionRegistryPostProcessor that searches recursively starting from a base package for interfaces and
- * registers them as {@code MapperFactoryBean}. Note that only interfaces with at least one method will be registered;
- * concrete classes will be ignored.
+ * Mapper扫描配置类（Bean定义注册后置处理器），扫描某个包下的所有接口，并且注册为{@code MapperFactoryBean}。
+ * 注意：仅允许至少有1个方法的接口被注册，具体的实现类会被忽略。
  * <p>
- * This class was a {code BeanFactoryPostProcessor} until 1.0.1 version. It changed to
- * {@code BeanDefinitionRegistryPostProcessor} in 1.0.2. See https://jira.springsource.org/browse/SPR-8269 for the
- * details.
- * <p>
- * The {@code basePackage} property can contain more than one package name, separated by either commas or semicolons.
+ * basePackage属性：可以包含多个包名，可使用逗号或者分号分隔。
  * <p>
  * This class supports filtering the mappers created by either specifying a marker interface or an annotation. The
  * {@code annotationClass} property specifies an annotation to search for. The {@code markerInterface} property

@@ -23,6 +23,10 @@
   targetNamespace="http://mybatis.org/schema/mybatis-spring"
   elementFormDefault="qualified" attributeFormDefault="unqualified">
 
+  <!--
+    只有一个元素：scan。它的属性包括：base-package、marker-interface、annotation、factory-ref、template-ref、
+    name-generator、mapper-factory-bean-class、lazy-initialization、default-scope、process-property-placeholders
+     -->
   <xsd:element name="scan">
     <xsd:annotation>
       <xsd:documentation>

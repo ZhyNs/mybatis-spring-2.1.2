@@ -42,10 +42,9 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
 /**
- * Thread safe, Spring managed, {@code SqlSession} that works with Spring transaction management to ensure that the
- * actual SqlSession used is the one associated with the current Spring transaction. In addition, it manages the session
- * life-cycle, including closing, committing or rolling back the session as necessary based on the Spring transaction
- * configuration.
+ * 线程安全的、Spring可管理的SqlSession。
+ * 和Spring事务管理配合使用，确保真实的sqlSession是与当前Spring事务关联的sqlSession。
+ * 另外，它管理session的声明周期，包括关闭、提交、回滚。
  * <p>
  * The template needs a SqlSessionFactory to create SqlSessions, passed as a constructor argument. It also can be
  * constructed indicating the executor type to be used, if not, the default executor type, defined in the session

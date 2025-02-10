@@ -39,9 +39,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * A {@link ImportBeanDefinitionRegistrar} to allow annotation configuration of MyBatis mapper scanning. Using
- * an @Enable annotation allows beans to be registered via @Component configuration, whereas implementing
- * {@code BeanDefinitionRegistryPostProcessor} will work for XML configuration.
+ * 基于注解的mapper扫描器。使用@Enable注解允许bean通过@Component配置注册为bean。
  *
  * @author Michael Lanyon
  * @author Eduardo Macarron
@@ -70,6 +68,7 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
    */
   @Override
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+    // 检查是否有@MapperScan注解，如果则解析该注解
     AnnotationAttributes mapperScanAttrs = AnnotationAttributes
         .fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
     if (mapperScanAttrs != null) {

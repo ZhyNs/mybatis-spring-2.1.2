@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 /**
- * A {#code BeanDefinitionParser} that handles the element scan of the MyBatis. namespace
+ * 基于xml配置的mapper扫描器，处理Mybatis的元素扫描。
  *
  * @author Lishu Luo
  * @author Eduardo Macarron
@@ -47,6 +47,7 @@ import org.w3c.dom.Element;
 
 public class MapperScannerBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
+  // ------------- mapper扫描的属性字段 -------------
   private static final String ATTRIBUTE_BASE_PACKAGE = "base-package";
   private static final String ATTRIBUTE_ANNOTATION = "annotation";
   private static final String ATTRIBUTE_MARKER_INTERFACE = "marker-interface";
@@ -65,10 +66,12 @@ public class MapperScannerBeanDefinitionParser extends AbstractBeanDefinitionPar
    */
   @Override
   protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+    // 获取MapperScannerConfigurer的Bean定义构建者
     BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(MapperScannerConfigurer.class);
 
     ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
 
+    // ---------------- 将属性赋值给builder -------------
     String processPropertyPlaceHolders = element.getAttribute(ATTRIBUTE_PROCESS_PROPERTY_PLACEHOLDERS);
     builder.addPropertyValue("processPropertyPlaceHolders",
         !StringUtils.hasText(processPropertyPlaceHolders) || Boolean.parseBoolean(processPropertyPlaceHolders));
@@ -109,7 +112,7 @@ public class MapperScannerBeanDefinitionParser extends AbstractBeanDefinitionPar
     builder.addPropertyValue("defaultScope", element.getAttribute(ATTRIBUTE_DEFAULT_SCOPE));
     builder.addPropertyValue("basePackage", element.getAttribute(ATTRIBUTE_BASE_PACKAGE));
 
-    // for spring-native
+    // 设置Bean的角色：基础设施
     builder.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 
     return builder.getBeanDefinition();
